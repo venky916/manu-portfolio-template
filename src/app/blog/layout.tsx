@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import "../../globals.css";
+import "../globals.css";
 
 import { Inter } from "next/font/google";
 import { Container } from "@/components/container";
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container className="min-h-screen p-4 md:pt-16 md:pb-10 prose">
+    <Container className="prose min-h-screen p-4 md:pt-16 md:pb-10">
       {children}
     </Container>
   );

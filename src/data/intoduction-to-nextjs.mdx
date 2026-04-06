@@ -1,0 +1,297 @@
+---
+title: "Introduction to Next.js"
+description: "Next js is a powerful react framework"
+images: "/images/blog/next.webp"
+date: "2023-09-15"
+---
+
+# Introduction to Next.js: A Complete Guide
+
+Next.js is a powerful React framework that makes building modern web applications fast, efficient, and enjoyable. Whether you're building a simple website or a complex full-stack application, Next.js provides all the tools you need to succeed.
+
+## What is Next.js?
+
+Next.js is a fullstack React framework that enables you to build web applications with server-side rendering, static site generation, and API routes—all in one cohesive package. It simplifies the development process by handling routing, optimization, and deployment out of the box.
+
+### Why Next.js?
+
+- **Server-Side Rendering (SSR)** - Render pages on the server for better SEO and performance
+- **Static Site Generation (SSG)** - Pre-render pages at build time for lightning-fast load times
+- **Incremental Static Regeneration (ISR)** - Update static content without rebuilding the entire site
+- **API Routes** - Build backend APIs within your Next.js application
+- **File-Based Routing** - Create routes simply by organizing your files
+- **Optimized Images** - Automatic image optimization for better performance
+- **Built-in CSS Support** - CSS modules, Tailwind CSS, and Sass out of the box
+
+## Getting Started
+
+### Installation
+
+Create a new Next.js project using the official create-next-app tool:
+
+```bash
+npx create-next-app@latest my-app
+cd my-app
+npm run dev
+```
+
+This will scaffold a new Next.js project and start the development server on `http://localhost:3000`.
+
+### Project Structure
+
+```
+my-app/
+├── app/                 # App directory (Next.js 13+)
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── blog/           # Blog route segment
+│       └── [slug]/
+│           └── page.tsx
+├── public/             # Static assets
+├── package.json        # Dependencies
+└── next.config.ts      # Next.js configuration
+```
+
+## Core Concepts
+
+### File-Based Routing
+
+Next.js automatically creates routes based on your file structure:
+
+```
+app/
+├── page.tsx           → /
+├── about/page.tsx     → /about
+└── blog/[id]/page.tsx → /blog/1, /blog/2, etc.
+```
+
+No need for complex routing configuration—just create files!
+
+### Pages & Layouts
+
+**Page Component**:
+```typescript
+export default function Home() {
+  return <h1>Welcome to Next.js!</h1>
+}
+```
+
+**Layout Component**:
+```typescript
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### Server Components vs Client Components
+
+**Server Component** (default):
+```typescript
+// app/page.tsx
+async function getData() {
+  const res = await fetch('https://api.example.com/data')
+  return res.json()
+}
+
+export default async function Page() {
+  const data = await getData()
+  return <div>{data.title}</div>
+}
+```
+
+**Client Component** (for interactivity):
+```typescript
+'use client'
+
+import { useState } from 'react'
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+  return <button onClick={() => setCount(count + 1)}>{count}</button>
+}
+```
+
+### Dynamic Routes
+
+Create dynamic routes using square brackets:
+
+```typescript
+// app/blog/[slug]/page.tsx
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  return <h1>Blog Post: {params.slug}</h1>
+}
+```
+
+### API Routes
+
+Build your backend API without leaving your Next.js project:
+
+```typescript
+// app/api/hello/route.ts
+export async function GET(request: Request) {
+  return Response.json({ message: 'Hello from Next.js!' })
+}
+
+export async function POST(request: Request) {
+  const data = await request.json()
+  return Response.json({ received: data })
+}
+```
+
+## Rendering Strategies
+
+### Static Site Generation (SSG)
+
+Pre-render pages at build time for maximum performance:
+
+```typescript
+// app/blog/page.tsx
+export async function generateStaticParams() {
+  const posts = await fetchPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
+export default function BlogPost({ params }) {
+  return <h1>{params.slug}</h1>
+}
+```
+
+### Server-Side Rendering (SSR)
+
+Render pages on the server at request time:
+
+```typescript
+// This happens by default in Next.js 13+
+export default function Page({ params }) {
+  return <h1>{params.slug}</h1>
+}
+```
+
+### Incremental Static Regeneration (ISR)
+
+Revalidate static pages on a schedule:
+
+```typescript
+// app/blog/[slug]/page.tsx
+export const revalidate = 60 // Revalidate every 60 seconds
+
+export default function BlogPost({ params }) {
+  return <h1>{params.slug}</h1>
+}
+```
+
+## Styling
+
+### Tailwind CSS
+
+Next.js comes with built-in Tailwind CSS support:
+
+```tsx
+export default function Home() {
+  return (
+    <div className="bg-blue-500 text-white p-8 rounded-lg">
+      <h1 className="text-3xl font-bold">Welcome!</h1>
+    </div>
+  )
+}
+```
+
+### CSS Modules
+
+Use scoped CSS with modules:
+
+```css
+/* styles.module.css */
+.container {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 8px;
+}
+```
+
+```typescript
+import styles from './styles.module.css'
+
+export default function Home() {
+  return <div className={styles.container}>Content</div>
+}
+```
+
+## Image Optimization
+
+Use the Next.js Image component for automatic optimization:
+
+```typescript
+import Image from 'next/image'
+
+export default function Hero() {
+  return (
+    <Image
+      src="/hero.jpg"
+      alt="Hero image"
+      width={800}
+      height={600}
+      priority
+    />
+  )
+}
+```
+
+## Deployment
+
+### Vercel (Recommended)
+
+Deploy to Vercel with zero configuration:
+
+```bash
+npm install -g vercel
+vercel
+```
+
+### Other Platforms
+
+- **Docker** - Build and deploy Docker containers
+- **AWS** - Use AWS Amplify or ECS
+- **Netlify** - Deploy using Netlify CLI
+- **Self-hosted** - Run `npm run build && npm start`
+
+## Best Practices
+
+1. **Use Server Components** - Default to server components for better performance
+2. **Optimize Images** - Always use the `Image` component
+3. **Implement Error Boundaries** - Handle errors gracefully with `error.tsx`
+4. **Code Splitting** - Leverage automatic code splitting for faster load times
+5. **SEO** - Use metadata API for proper SEO
+
+## Common Use Cases
+
+- 📰 **Blogs** - Perfect for content-heavy sites with dynamic content
+- 🏢 **Company Websites** - Fast, SEO-friendly marketing sites
+- 📱 **Full-Stack Apps** - Build API and frontend in one project
+- 📊 **Dashboards** - Interactive admin panels with real-time data
+- 🛒 **E-commerce** - High-performance shopping experiences
+
+## Conclusion
+
+Next.js revolutionizes how we build React applications. With its powerful features like server-side rendering, static generation, and built-in API routes, you can create fast, scalable, and SEO-friendly web applications with ease.
+
+Whether you're a beginner or an experienced developer, Next.js provides a smooth learning curve and powerful tools to bring your ideas to life.
+
+**Start building with Next.js today! 🚀**
+
+---
+
+**Learn More:**
+- [Official Next.js Documentation](https://nextjs.org/docs)
+- [Next.js GitHub Repository](https://github.com/vercel/next.js)
+- [Next.js Community](https://nextjs.org/community)

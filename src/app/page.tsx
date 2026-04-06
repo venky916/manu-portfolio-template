@@ -1,4 +1,5 @@
 import { Container } from "@/components/container";
+import { LandingBlogs } from "@/components/landing-blogs";
 import { Projects } from "@/components/projects";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
           I am Venkatesh software developer from India.{" "}
         </p>
         <Projects />
+        <LandingBlogs />
       </Container>
     </div>
   );

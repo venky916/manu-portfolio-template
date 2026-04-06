@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
     domains: ["images.unsplash.com", "assets.aceternity.com"]
-  }
+  },
+  transpilePackages: ['next-mdx-remote'],
 };
 
 const withMDX = createMDX({

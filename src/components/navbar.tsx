@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { Container } from "./container";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
@@ -28,6 +33,8 @@ export default function Navbar() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 100], [0, 10]);
+  const width = useTransform(scrollY, [0, 100], ["50%", "40%"]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 20) {
@@ -40,11 +47,16 @@ export default function Navbar() {
   return (
     <Container>
       <motion.nav
-        animate={{
-          width: scrolled ? "50%" : "100%",
-          y: scrolled ? 10 : 0,
+        style={{
+          y,
+          width,
           boxShadow: scrolled ? "var(--shadow-aceternity)" : "none",
         }}
+        // animate={{
+        // boxShadow: scrolled ? "var(--shadow-aceternity)" : "none",
+        // width: scrolled ? "50%" : "100%",
+        // y: scrolled ? 10 : 0,
+        // }}
         transition={{
           duration: 0.25,
           ease: "linear",
@@ -54,13 +66,15 @@ export default function Navbar() {
           scrolled && "rounded-full bg-white",
         )}
       >
-        <Image
-          src={"/itachi.webp"}
-          width={100}
-          height={100}
-          alt="avatar"
-          className="size-10 rounded-full"
-        />
+        <Link href={"/"}>
+          <Image
+            src={"/itachi.webp"}
+            width={100}
+            height={100}
+            alt="avatar"
+            className="size-10 rounded-full"
+          />
+        </Link>
         <div className="flex items-center gap-2">
           {navItems.map((item, idx) => (
             <Link

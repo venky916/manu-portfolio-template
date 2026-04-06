@@ -1,3 +1,9 @@
+---
+title: "Getting started with tailwind"
+description: "Tailwind CSS is a utility-first CSS framework"
+images: "/images/blog/tailwind.webp"
+date: "2021-01-01"
+---
 
 # Tailwind CSS Basics: A Complete Guide
 
@@ -16,7 +22,7 @@ Tailwind CSS is a low-level utility framework that gives you building blocks to 
 <div class="card"><!-- needs custom CSS --></div>
 
 <!-- Tailwind CSS -->
-<div class="bg-white rounded-lg shadow-md p-6 m-4">
+<div class="m-4 rounded-lg bg-white p-6 shadow-md">
   <!-- styles applied directly via utilities -->
 </div>
 ```
@@ -36,14 +42,12 @@ Then configure your `tailwind.config.js`:
 
 ```javascript
 export default {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 ### Basic Setup
@@ -101,7 +105,7 @@ Tailwind uses breakpoints to create responsive designs:
 
 ```html
 <!-- Single column on mobile, 2 columns on medium screens -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
   <div>Item 1</div>
   <div>Item 2</div>
 </div>
@@ -111,9 +115,7 @@ Tailwind uses breakpoints to create responsive designs:
 
 ```html
 <!-- Hover effects -->
-<button class="bg-blue-500 hover:bg-blue-700 transition">
-  Hover me
-</button>
+<button class="bg-blue-500 transition hover:bg-blue-700">Hover me</button>
 
 <!-- Focus states -->
 <input class="border-2 border-gray-300 focus:border-blue-500" />
@@ -124,7 +126,9 @@ Tailwind uses breakpoints to create responsive designs:
 ### Button
 
 ```html
-<button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+<button
+  class="rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition duration-200 hover:bg-blue-700"
+>
   Click me
 </button>
 ```
@@ -132,8 +136,8 @@ Tailwind uses breakpoints to create responsive designs:
 ### Card
 
 ```html
-<div class="bg-white rounded-lg shadow-md p-6 max-w-sm">
-  <h3 class="text-xl font-bold mb-2">Card Title</h3>
+<div class="max-w-sm rounded-lg bg-white p-6 shadow-md">
+  <h3 class="mb-2 text-xl font-bold">Card Title</h3>
   <p class="text-gray-600">Card description goes here.</p>
 </div>
 ```
@@ -141,8 +145,8 @@ Tailwind uses breakpoints to create responsive designs:
 ### Navigation Bar
 
 ```html
-<nav class="bg-gray-900 text-white p-4 flex justify-between items-center">
-  <div class="font-bold text-lg">Logo</div>
+<nav class="flex items-center justify-between bg-gray-900 p-4 text-white">
+  <div class="text-lg font-bold">Logo</div>
   <div class="flex gap-4">
     <a href="#" class="hover:text-gray-300">Home</a>
     <a href="#" class="hover:text-gray-300">About</a>
@@ -164,7 +168,7 @@ Tailwind uses breakpoints to create responsive designs:
 ```css
 @layer components {
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition;
+    @apply rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700;
   }
 }
 ```
@@ -175,11 +179,10 @@ Tailwind uses breakpoints to create responsive designs:
 ✅ Smaller bundle size - Unused styles are automatically purged  
 ✅ Consistency - Pre-defined spacing, colors, and sizing scales  
 ✅ Responsive by default - Mobile-first design is built-in  
-✅ Easy to maintain - Styles are co-located with markup  
+✅ Easy to maintain - Styles are co-located with markup
 
 ## Conclusion
 
 Tailwind CSS is a powerful tool that revolutionizes how you write CSS. By using utility classes, you can build beautiful, responsive designs faster than ever. Start with the basics, explore the extensive documentation, and you'll be building amazing UIs in no time!
 
 **Happy styling! 🎨**
-

@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
+import { ViewTransitions } from "next-view-transitions";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.className} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-neutral-100 dark:bg-neutral-700">
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" className={`${inter.className} h-full antialiased`}>
+        <body className="flex min-h-full flex-col bg-neutral-100 dark:bg-neutral-700">
+          <Navbar />
+          {children}
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
