@@ -38,8 +38,8 @@ export default function RootLayout({
           geist.variable,
         )}
       >
-        <body className="flex min-h-full flex-col bg-neutral-100 dark:bg-neutral-700">
-          <Toaster richColors position="top-center"/>
+        <body className="flex min-h-full flex-col bg-neutral-100 [--pattern-fg:var(--color-neutral-950)]/5 dark:bg-neutral-700">
+          <Toaster richColors position="top-center" />
           <Navbar />
           {children}
           <Footer />

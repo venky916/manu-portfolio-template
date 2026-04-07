@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { compileMDX, MDXRemote } from "next-mdx-remote/rsc";
 import { getSingleBlog } from "@/utils/mdx";
 import { redirect } from "next/navigation";
+import { Scales } from "@/components/scales";
 
 // export const metadata: Metadata = {
 //   title: "All blogs - Venkatesh",
@@ -42,7 +43,8 @@ export default async function SingleBlogPage({ params }: SingleBlogPageProps) {
 
   return (
     <div className="flex min-h-screen items-start justify-start">
-      <Container className="mx-auto min-h-screen p-4 md:pt-16 md:pb-10">
+      <Container className="relative h-full min-h-screen px-8 md:pt-20 md:pb-10">
+        <Scales />
         <img
           src={blog?.frontmatter?.image}
           alt={blog?.frontmatter?.title}

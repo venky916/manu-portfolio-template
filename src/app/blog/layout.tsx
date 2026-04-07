@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container className="prose min-h-screen p-4 md:pt-16 md:pb-10">
+    <Container className="prose min-h-screen  md:pt-16 md:pb-10">
       {children}
     </Container>
   );

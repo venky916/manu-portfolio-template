@@ -13,7 +13,7 @@ export const LandingBlogs = async () => {
     return str.length > length ? `${str.slice(0, length)}...` : str;
   };
   return (
-    <div className="py-10">
+    <div className="py-10 px-4">
       <SectionHeading className="pb-4" delay={0.4}>
         I love writing things down.
       </SectionHeading>

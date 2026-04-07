@@ -64,7 +64,7 @@ export const TimeLine = () => {
     },
   ];
   return (
-    <div ref={ref} className="py-10">
+    <div ref={ref} className="py-4 my-6 px-4 shadow-section border-y border-neutral-200">
       {data.map((item, index) => (
         <div key={index}>
           <motion.h3

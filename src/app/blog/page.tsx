@@ -1,5 +1,6 @@
 import { Container } from "@/components/container";
 import { Heading } from "@/components/heading";
+import { Scales } from "@/components/scales";
 import { SubHeading } from "@/components/sub-heading";
 import { getBlogs } from "@/utils/mdx";
 import { Metadata } from "next";
@@ -21,10 +22,11 @@ export default async function BlogsPage() {
   };
   return (
     <div className="flex min-h-screen items-start justify-start">
-      <Container className="min-h-screen px-10 md:pt-16 md:pb-10">
+      <Container className="relative h-full min-h-screen px-8 md:pt-20 md:pb-10">
+        <Scales />
         <Heading>All blogs</Heading>
         <SubHeading>I am Venkatesh software developer from India. </SubHeading>
-        <div className="flex flex-col">
+        <div className="flex flex-col px-4">
           {allBlogs?.map((blog, idx) => (
             <Link
               className="no-underline"

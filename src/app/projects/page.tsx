@@ -1,13 +1,15 @@
 import { Container } from "@/components/container";
 import { Heading } from "@/components/heading";
 import { Projects } from "@/components/projects";
+import { Scales } from "@/components/scales";
 import { SubHeading } from "@/components/sub-heading";
 import { projects } from "@/constants/projects";
 
 export default function ProjectsPage() {
   return (
     <div className="flex min-h-screen items-start justify-start">
-      <Container className="min-h-screen p-4 md:pt-16 md:pb-10">
+      <Container className="relative h-full min-h-screen px-8 md:pt-20 md:pb-10">
+        <Scales />
         <Heading>Projects</Heading>
         <SubHeading>
           I am a passionate web developer with a love for creating beautiful and
