@@ -1,4 +1,6 @@
 import { Container } from "@/components/container";
+import { Heading } from "@/components/heading";
+import { SubHeading } from "@/components/sub-heading";
 import { getBlogs } from "@/utils/mdx";
 import { Metadata } from "next";
 // import Link from "next/link";
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
   description: "All my general wisdom",
 };
 
-export default async function Home() {
+export default async function BlogsPage() {
   const allBlogs = await getBlogs();
 
   if (!allBlogs) return null;
@@ -19,14 +21,10 @@ export default async function Home() {
   };
   return (
     <div className="flex min-h-screen items-start justify-start">
-      <Container className="min-h-[200vh] p-4 md:pt-16 md:pb-10">
-        <h1 className="text-primary text-2xl font-bold tracking-tight md:text-4xl">
-          All blogs
-        </h1>
-        <p className="text-secondary max-w-lg pt-4 text-sm md:text-sm">
-          I am Venkatesh software developer from India.{" "}
-        </p>
-        <div className="flex flex-col gap-2">
+      <Container className="min-h-screen px-10 md:pt-16 md:pb-10">
+        <Heading>All blogs</Heading>
+        <SubHeading>I am Venkatesh software developer from India. </SubHeading>
+        <div className="flex flex-col">
           {allBlogs?.map((blog, idx) => (
             <Link
               className="no-underline"
@@ -34,7 +32,7 @@ export default async function Home() {
               key={idx}
             >
               <div className="flex items-center justify-between">
-                <p className="text-primary text-base font-bold tracking-tight">
+                <p className="text-primary text-lg font-bold tracking-tight">
                   {blog?.frontmatter?.title}
                 </p>
                 <p className="text-secondary text-sm">

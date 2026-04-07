@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { Container } from "./container";
 import Image from "next/image";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 import {
   motion,
+  useMotionTemplate,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -34,7 +35,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 100], [0, 10]);
-  const width = useTransform(scrollY, [0, 100], ["50%", "40%"]);
+  const width = useTransform(scrollY, [0, 100], ["58%", "50%"]);
+  // const opacity = useTransform(scrollY, [0, 100], [1, 0.8]);
+  const filter = useMotionTemplate`blur(${useTransform(scrollY, [0, 100], [0, 10])}px)`;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 20) {
@@ -51,6 +54,8 @@ export default function Navbar() {
           y,
           width,
           boxShadow: scrolled ? "var(--shadow-aceternity)" : "none",
+          // opacity,
+          backdropFilter: filter,
         }}
         // animate={{
         // boxShadow: scrolled ? "var(--shadow-aceternity)" : "none",
@@ -63,7 +68,7 @@ export default function Navbar() {
         }}
         className={cn(
           "fixed inset-x-0 top-0 left-0 mx-auto flex max-w-4xl items-center justify-between px-3 py-2",
-          scrolled && "rounded-full bg-white",
+          scrolled && "rounded-full bg-white z-50",
         )}
       >
         <Link href={"/"}>

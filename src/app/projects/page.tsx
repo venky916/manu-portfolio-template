@@ -1,14 +1,14 @@
-import { Collage } from "@/components/collage";
 import { Container } from "@/components/container";
 import { Heading } from "@/components/heading";
+import { Projects } from "@/components/projects";
 import { SubHeading } from "@/components/sub-heading";
-import { TimeLine } from "@/components/timeline";
+import { projects } from "@/constants/projects";
 
-export default function AboutPage() {
+export default function ProjectsPage() {
   return (
     <div className="flex min-h-screen items-start justify-start">
       <Container className="min-h-screen p-4 md:pt-16 md:pb-10">
-        <Heading>About me</Heading>
+        <Heading>Projects</Heading>
         <SubHeading>
           I am a passionate web developer with a love for creating beautiful and
           functional websites. With a strong foundation in HTML, CSS, and
@@ -16,15 +16,7 @@ export default function AboutPage() {
           applications. In my free time, I enjoy exploring new coding challenges
           and experimenting with different programming languages.
         </SubHeading>
-        <p className="text-secondary max-w-lg pt-4 text-sm md:text-sm">
-          I love to travel and explore new places. I have been to 5 countries
-          and visited 10 cities.
-        </p>
-        <Collage />
-        <p className="text-secondary max-w-lg pt-4 text-sm md:text-sm">
-          Here is a timeline of my life achievements:
-        </p>
-        <TimeLine />
+        <Projects projects={projects} />
       </Container>
     </div>
   );

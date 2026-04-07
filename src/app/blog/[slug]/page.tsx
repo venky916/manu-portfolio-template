@@ -42,7 +42,12 @@ export default async function SingleBlogPage({ params }: SingleBlogPageProps) {
 
   return (
     <div className="flex min-h-screen items-start justify-start">
-      <Container className="mx-auto min-h-[200vh] p-4 md:pt-16 md:pb-10">
+      <Container className="mx-auto min-h-screen p-4 md:pt-16 md:pb-10">
+        <img
+          src={blog?.frontmatter?.image}
+          alt={blog?.frontmatter?.title}
+          className="mb-20 max-h-96 max-w-2xl mx-auto w-full border border-neutral-200 rounded-2xl shadow-xl object-cover"
+        />
         {blog.content}
       </Container>
     </div>

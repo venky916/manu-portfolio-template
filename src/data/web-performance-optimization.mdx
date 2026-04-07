@@ -1,0 +1,193 @@
+---
+title: "Web Performance Optimization"
+description: "Master performance optimization techniques to build faster web applications"
+image: "/images/blog/next.webp"
+date: "2024-02-10"
+---
+
+# Web Performance Optimization: Complete Guide
+
+Web performance is crucial for user experience and SEO. Learn how to optimize your web applications for speed and efficiency.
+
+## Why Performance Matters?
+
+- **User Experience** - Users expect fast-loading websites
+- **SEO Rankings** - Google considers page speed in rankings
+- **Conversion Rates** - Faster sites have higher conversion rates
+- **Mobile Users** - Performance is critical on slower connections
+
+## Core Web Vitals
+
+### Largest Contentful Paint (LCP)
+
+Measures loading performance. Target: < 2.5 seconds
+
+```typescript
+// Add performance observer
+const observer = new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  const lastEntry = entries[entries.length - 1];
+  console.log("LCP:", lastEntry.renderTime || lastEntry.loadTime);
+});
+
+observer.observe({ entryTypes: ["largest-contentful-paint"] });
+```
+
+### First Input Delay (FID)
+
+Measures interactivity. Target: < 100ms
+
+```typescript
+// Monitor FID
+new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    console.log("FID:", entry.processingDuration);
+  }
+}).observe({ entryTypes: ["first-input"] });
+```
+
+### Cumulative Layout Shift (CLS)
+
+Measures visual stability. Target: < 0.1
+
+## Performance Optimization Techniques
+
+### 1. Image Optimization
+
+```typescript
+import Image from 'next/image'
+
+// Use Next.js Image component for automatic optimization
+export default function Hero() {
+  return (
+    <Image
+      src="/hero.jpg"
+      alt="Hero"
+      width={1200}
+      height={600}
+      priority
+      quality={80}
+    />
+  )
+}
+```
+
+### 2. Code Splitting
+
+```typescript
+import dynamic from 'next/dynamic'
+
+const HeavyComponent = dynamic(
+  () => import('./HeavyComponent'),
+  { loading: () => <p>Loading...</p> }
+)
+
+export default function Page() {
+  return <HeavyComponent />
+}
+```
+
+### 3. Lazy Loading
+
+```html
+<!-- Lazy load images -->
+<img src="image.jpg" loading="lazy" alt="Image" />
+
+<!-- Lazy load iframes -->
+<iframe src="..." loading="lazy"></iframe>
+```
+
+### 4. Caching Strategies
+
+```typescript
+// Service Worker for caching
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("v1").then((cache) => {
+      return cache.addAll(["/", "/styles/main.css", "/js/app.js"]);
+    }),
+  );
+});
+```
+
+### 5. Minification & Compression
+
+```bash
+# Gzip compression in Next.js (automatic)
+# Enable in next.config.js
+export default {
+  compress: true,
+}
+```
+
+### 6. Font Optimization
+
+```typescript
+// Use system fonts or optimize web fonts
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  preload: true,
+})
+
+export default function Home() {
+  return (
+    <html className={inter.className}>
+      <body>...</body>
+    </html>
+  )
+}
+```
+
+## Monitoring & Metrics
+
+### Lighthouse
+
+Audit your site with Google Lighthouse:
+
+```bash
+# CLI audit
+npm install -g lighthouse
+lighthouse https://yoursite.com
+```
+
+### Web Vitals Library
+
+```typescript
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from "web-vitals";
+
+getCLS(console.log);
+getFID(console.log);
+getFCP(console.log);
+getLCP(console.log);
+getTTFB(console.log);
+```
+
+## Performance Checklist
+
+✅ Optimize images - Use modern formats (WebP)  
+✅ Minimize CSS/JS - Minify and compress  
+✅ Use CDN - Serve static assets from CDN  
+✅ Enable caching - Browser and server caching  
+✅ Reduce redirects - Minimize unnecessary redirects  
+✅ Defer non-critical JS - Load critical JS synchronously  
+✅ Compress text - Enable gzip/brotli compression  
+✅ Optimize fonts - Preload critical fonts  
+✅ Remove unused CSS - Tree-shake unused code  
+✅ Monitor performance - Set up performance monitoring
+
+## Tools & Resources
+
+- [Lighthouse](https://developers.google.com/web/tools/lighthouse)
+- [WebPageTest](https://www.webpagetest.org/)
+- [GTmetrix](https://gtmetrix.com/)
+- [PageSpeed Insights](https://pagespeed.web.dev/)
+
+## Conclusion
+
+Performance optimization is an ongoing process. Regularly audit your site, measure metrics, and implement improvements. Every millisecond counts!
+
+---
+
+**Start optimizing today and watch your metrics improve! ⚡**

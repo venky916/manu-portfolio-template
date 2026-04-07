@@ -1,0 +1,359 @@
+---
+title: "JavaScript ES6+ Features & Best Practices"
+description: "Master modern JavaScript with ES6+ features and write cleaner, more efficient code"
+image: "/images/blog/next.webp"
+date: "2023-12-20"
+---
+
+# JavaScript ES6+ Features & Best Practices
+
+Modern JavaScript (ES6+) brings powerful features that make coding easier and more enjoyable. Learn the essentials and best practices for writing better JavaScript.
+
+## What's New in ES6+?
+
+ES6 (2015) was a major update that introduced many features we use daily. Since then, new features are added yearly.
+
+### Key ES6+ Features
+
+- Arrow functions
+- Destructuring
+- Template literals
+- Async/await
+- Classes
+- Modules
+- Spread operator
+
+## Arrow Functions
+
+Clean, concise function syntax:
+
+```javascript
+// Traditional function
+const add = function(a, b) {
+  return a + b
+}
+
+// Arrow function
+const add = (a, b) => a + b
+
+// With multiple lines
+const add = (a, b) => {
+  const result = a + b
+  return result
+}
+
+// Single parameter
+const double = x => x * 2
+
+// No parameters
+const greet = () => "Hello"
+```
+
+**Important**: Arrow functions don't have their own `this`
+
+```javascript
+const person = {
+  name: "John",
+  greet: function() {
+    console.log(this.name) // Works: "John"
+  },
+  greetArrow: () => {
+    console.log(this.name) // Doesn't work: undefined
+  }
+}
+```
+
+## Destructuring
+
+Extract values from objects and arrays easily:
+
+### Object Destructuring
+
+```javascript
+const user = {
+  id: 1,
+  name: "John",
+  email: "john@example.com"
+}
+
+// Traditional way
+const name = user.name
+const email = user.email
+
+// Destructuring
+const { name, email } = user
+
+// With aliases
+const { name: userName, email: userEmail } = user
+
+// With defaults
+const { name, role = 'user' } = user
+
+// Nested destructuring
+const { address: { city } } = user
+```
+
+### Array Destructuring
+
+```javascript
+const colors = ['red', 'green', 'blue']
+
+// Traditional way
+const first = colors[0]
+const second = colors[1]
+
+// Destructuring
+const [first, second] = colors
+
+// Skip elements
+const [first, , third] = colors
+
+// Rest operator
+const [first, ...rest] = colors // rest = ['green', 'blue']
+
+// Swap values
+let [a, b] = [1, 2]
+[a, b] = [b, a]
+```
+
+## Template Literals
+
+Clean string interpolation:
+
+```javascript
+const name = "John"
+const age = 30
+
+// Traditional concatenation
+const greeting = "Hello, " + name + ". You are " + age + " years old."
+
+// Template literals
+const greeting = `Hello, ${name}. You are ${age} years old.`
+
+// Multi-line strings
+const message = `
+  Hello ${name},
+  Welcome to our site!
+  You are ${age} years old.
+`
+
+// Expressions in templates
+const total = `Total: $${price * quantity}`
+```
+
+## Async/Await
+
+Handle asynchronous operations cleanly:
+
+```javascript
+// Promises (older approach)
+function fetchUser() {
+  return fetch('/api/user')
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err))
+}
+
+// Async/Await (modern approach)
+async function fetchUser() {
+  try {
+    const res = await fetch('/api/user')
+    const data = await res.json()
+    console.log(data)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// Usage
+await fetchUser()
+```
+
+## Spread Operator
+
+Expand arrays and objects:
+
+```javascript
+// Array spreading
+const arr1 = [1, 2, 3]
+const arr2 = [4, 5, 6]
+const combined = [...arr1, ...arr2] // [1, 2, 3, 4, 5, 6]
+
+// Copy array
+const original = [1, 2, 3]
+const copy = [...original]
+
+// Object spreading
+const user = { name: "John", age: 30 }
+const userWithEmail = { ...user, email: "john@example.com" }
+// { name: "John", age: 30, email: "john@example.com" }
+
+// Copy object
+const copy = { ...user }
+
+// Function arguments
+const numbers = [1, 2, 3]
+const sum = (a, b, c) => a + b + c
+sum(...numbers) // 6
+```
+
+## Classes
+
+Object-oriented programming made easier:
+
+```typescript
+class User {
+  private id: number
+  public name: string
+  protected role: string
+
+  constructor(id: number, name: string) {
+    this.id = id
+    this.name = name
+    this.role = 'user'
+  }
+
+  greet() {
+    return `Hello, I'm ${this.name}`
+  }
+
+  static createAdmin(name: string) {
+    const user = new User(1, name)
+    user.role = 'admin'
+    return user
+  }
+}
+
+// Inheritance
+class Admin extends User {
+  constructor(id: number, name: string) {
+    super(id, name)
+    this.role = 'admin'
+  }
+
+  printRole() {
+    console.log(this.role)
+  }
+}
+
+const user = new User(1, "John")
+const admin = new Admin(2, "Jane")
+```
+
+## Array Methods
+
+Modern, functional array operations:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5]
+
+// Map - Transform each element
+const doubled = numbers.map(n => n * 2) // [2, 4, 6, 8, 10]
+
+// Filter - Keep elements that match condition
+const even = numbers.filter(n => n % 2 === 0) // [2, 4]
+
+// Reduce - Accumulate values
+const sum = numbers.reduce((acc, n) => acc + n, 0) // 15
+
+// Find - Get first matching element
+const firstEven = numbers.find(n => n % 2 === 0) // 2
+
+// Some - Check if any match
+const hasEven = numbers.some(n => n % 2 === 0) // true
+
+// Every - Check if all match
+const allPositive = numbers.every(n => n > 0) // true
+
+// Chaining methods
+const result = numbers
+  .filter(n => n > 2)
+  .map(n => n * 2)
+  .reduce((acc, n) => acc + n, 0) // 36
+```
+
+## Modules
+
+Organize code with ES6 modules:
+
+```typescript
+// math.ts - Export
+export const add = (a: number, b: number) => a + b
+
+export const multiply = (a: number, b: number) => a * b
+
+export default class Calculator {
+  divide(a: number, b: number) {
+    return a / b
+  }
+}
+
+// main.ts - Import
+import Calculator, { add, multiply } from './math'
+
+const result = add(5, 3)
+const product = multiply(4, 2)
+const calc = new Calculator()
+const division = calc.divide(10, 2)
+
+// Import as namespace
+import * as math from './math'
+math.add(5, 3)
+```
+
+## Best Practices
+
+✅ Use `const` by default, `let` when rebinding is needed  
+✅ Use arrow functions for callbacks  
+✅ Use destructuring to make code cleaner  
+✅ Use template literals instead of concatenation  
+✅ Use async/await instead of promise chains  
+✅ Avoid `var` - use `const` and `let`  
+✅ Use modern array methods (map, filter, reduce)  
+✅ Name functions clearly and meaningfully  
+✅ Keep functions small and focused  
+✅ Use comments for complex logic
+
+## Comparing Code Styles
+
+### Old Style
+```javascript
+var user = {
+  name: "John",
+  greet: function() {
+    fetch('/api/user')
+      .then(function(res) {
+        return res.json()
+      })
+      .then(function(data) {
+        console.log("Hello " + data.name)
+      })
+  }
+}
+```
+
+### Modern Style
+```javascript
+const user = {
+  name: "John",
+  greet: async () => {
+    const res = await fetch('/api/user')
+    const { name } = await res.json()
+    console.log(`Hello ${name}`)
+  }
+}
+```
+
+## Resources
+
+- [MDN Web Docs - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [JavaScript.info](https://javascript.info/)
+- [ES6 Features](https://es6-features.org/)
+
+## Conclusion
+
+Modern JavaScript is more powerful and enjoyable than ever. Learn these features and write cleaner, more maintainable code. Keep practicing and stay updated with the latest JavaScript developments!
+
+---
+
+**Happy coding! 💻**

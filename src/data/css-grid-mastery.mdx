@@ -1,0 +1,288 @@
+---
+title: "CSS Grid Mastery"
+description: "Create complex layouts with CSS Grid - from basics to advanced techniques"
+image: "/images/blog/next.webp"
+date: "2024-01-15"
+---
+
+# CSS Grid Mastery: Build Modern Layouts
+
+CSS Grid is a powerful tool for creating complex, responsive layouts. Learn how to master it and build beautiful web pages.
+
+## What is CSS Grid?
+
+CSS Grid is a two-dimensional layout system that allows you to create layouts with rows and columns. It's perfect for building page layouts, dashboards, and any grid-based design.
+
+### Why CSS Grid?
+
+- **Two-Dimensional** - Control both rows and columns
+- **Flexible** - Create responsive layouts easily
+- **Powerful** - Handle complex layouts with simple code
+- **Browser Support** - Works in all modern browsers
+
+## Basic Grid Setup
+
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+}
+```
+
+### Grid Terminology
+
+- **Grid Container** - Parent element with `display: grid`
+- **Grid Item** - Direct children of the grid container
+- **Grid Track** - Row or column in the grid
+- **Grid Area** - Space covered by a grid item
+- **Grid Line** - Dividing line between tracks
+- **Grid Gap** - Space between tracks
+
+## Columns & Rows
+
+```css
+.grid {
+  display: grid;
+  
+  /* Fixed sizes */
+  grid-template-columns: 200px 200px 200px;
+  
+  /* Flexible units */
+  grid-template-columns: 1fr 1fr 1fr;
+  
+  /* Mixed units */
+  grid-template-columns: 200px 1fr 200px;
+  
+  /* Repeat function */
+  grid-template-columns: repeat(3, 1fr);
+  
+  /* Auto-fit for responsive */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  
+  /* Gap between items */
+  gap: 20px;
+}
+```
+
+## Grid Template Areas
+
+Create named grid areas for easy layout:
+
+```css
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+  grid-template-columns: 250px 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  height: 100vh;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+```
+
+## Responsive Grid
+
+```css
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+## Grid Item Positioning
+
+```css
+.grid-item {
+  /* Span multiple columns */
+  grid-column: span 2;
+  
+  /* Span multiple rows */
+  grid-row: span 3;
+  
+  /* Specific positioning */
+  grid-column: 1 / 3;
+  grid-row: 2 / 4;
+  
+  /* From line 1 to -1 (end) */
+  grid-column: 1 / -1;
+  
+  /* Alignment */
+  justify-self: center;
+  align-self: center;
+}
+```
+
+## Alignment & Distribution
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  
+  /* Horizontal alignment of items */
+  justify-items: center;
+  
+  /* Vertical alignment of items */
+  align-items: center;
+  
+  /* Horizontal alignment of grid */
+  justify-content: center;
+  
+  /* Vertical alignment of grid */
+  align-content: center;
+}
+```
+
+## Practical Examples
+
+### Dashboard Layout
+
+```tsx
+import './dashboard.css'
+
+export default function Dashboard() {
+  return (
+    <div className="dashboard">
+      <header className="header">Header</header>
+      <nav className="sidebar">Sidebar</nav>
+      <main className="main">Main Content</main>
+      <aside className="widgets">Widgets</aside>
+      <footer className="footer">Footer</footer>
+    </div>
+  )
+}
+```
+
+```css
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "sidebar main widgets"
+    "footer footer footer";
+  gap: 20px;
+  height: 100vh;
+}
+
+.header { grid-area: header; background: #f0f0f0; }
+.sidebar { grid-area: sidebar; background: #e0e0e0; }
+.main { grid-area: main; }
+.widgets { grid-area: widgets; background: #f0f0f0; }
+.footer { grid-area: footer; background: #e0e0e0; }
+```
+
+### Card Grid
+
+```tsx
+export default function CardGrid() {
+  return (
+    <div className="card-grid">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="card">
+          Card {i}
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+```css
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+```
+
+## Advanced Features
+
+### Grid auto-flow
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+  /* Items flow down, then across */
+  grid-auto-flow: row;
+  
+  /* Items flow across, then down */
+  grid-auto-flow: column;
+  
+  /* Dense packing to fill gaps */
+  grid-auto-flow: dense;
+}
+```
+
+### Implicit Grid
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+  /* Auto-generate rows of this size */
+  grid-auto-rows: minmax(100px, auto);
+}
+```
+
+## Browser DevTools
+
+Firefox and Chrome have excellent Grid DevTools:
+
+1. Open DevTools → Inspector
+2. Select element with `display: grid`
+3. Click "Grid" badge to overlay the grid
+4. Customize overlay in the Layout panel
+
+## Conclusion
+
+CSS Grid is a game-changer for web layout. With these techniques, you can create any layout you imagine. Practice with real projects and master this powerful tool!
+
+---
+
+**Resources:**
+- [CSS Tricks Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [MDN CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)

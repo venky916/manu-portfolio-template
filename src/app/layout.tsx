@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-
 import "./globals.css";
+import { Toaster } from "sonner";
 
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import Navbar from "@/components/navbar";
 import { ViewTransitions } from "next-view-transitions";
+import { cn } from "@/lib/utils";
+import { Footer } from "@/components/footer";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,10 +28,21 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={`${inter.className} h-full antialiased`}>
+      <html
+        lang="en"
+        className={cn(
+          "h-full",
+          "antialiased",
+          inter.className,
+          "font-sans",
+          geist.variable,
+        )}
+      >
         <body className="flex min-h-full flex-col bg-neutral-100 dark:bg-neutral-700">
+          <Toaster richColors position="top-center"/>
           <Navbar />
           {children}
+          <Footer />
         </body>
       </html>
     </ViewTransitions>
